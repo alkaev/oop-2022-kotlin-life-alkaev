@@ -15,7 +15,7 @@ import javax.swing.JOptionPane
                 val SizeWindow : String
                 SizeWindow = JOptionPane.showInputDialog("Input size")
                 var kolvo1 = SizeWindow.toInt()
-                
+
                 //     ======================>
                 val myFrame = JFrame("LIFE")
                 myFrame.setSize(900, 700) // Магические константы
@@ -73,7 +73,7 @@ import javax.swing.JOptionPane
                         var s = 0
                         if ((i % kolvo1) != 0 && (i - kolvo1 - 1 >= 0) && arrayButtonStatus[i - kolvo1 - 1] == 1) s++
                         if ((i - kolvo1 >= 0) && arrayButtonStatus[i - kolvo1] == 1) s++
-                        if ((i % kolvo1) != 19 && i - kolvo1 + 1 >= 0 && arrayButtonStatus[i - kolvo1 + 1] == 1) s++
+                        if ((i % kolvo1) != kolvo1-1 && i - kolvo1 + 1 >= 0 && arrayButtonStatus[i - kolvo1 + 1] == 1) s++
                         if ((i % kolvo1) != 0 && arrayButtonStatus[i - 1] == 1) s++
                         if ((i % kolvo1) != kolvo1 - 1 && arrayButtonStatus[i + 1] == 1) s++
                         if ((i % kolvo1) != 0 && (i + kolvo1 - 1 <= kolvo1 * kolvo1 - 1) && arrayButtonStatus[i + kolvo1 - 1] == 1) s++
