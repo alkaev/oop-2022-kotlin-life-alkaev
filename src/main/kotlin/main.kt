@@ -15,6 +15,7 @@ import javax.swing.JOptionPane
                 val SizeWindow : String
                 SizeWindow = JOptionPane.showInputDialog("Input size")
                 var kolvo1 = SizeWindow.toInt()
+                
                 //     ======================>
                 val myFrame = JFrame("LIFE")
                 myFrame.setSize(900, 700) // Магические константы
