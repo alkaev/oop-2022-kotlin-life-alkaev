@@ -25,6 +25,7 @@ fun main(args: Array<String>) {
         var maxForBirth = 3
 
         var arrayButtonStatus: Array<Int> = arrayOf() // неговорящее название
+
         var arrayButton: Array<JButton> = arrayOf()
 
         fun saveTable(file: File) {
@@ -35,8 +36,8 @@ fun main(args: Array<String>) {
             writer.newLine()
             writer.write("$minForBirth $maxForBirth")
             writer.newLine()
-            for (i in 0..19) {
-                for (j in 0..19) {
+            for (i in 0..sizeWindow-1) {
+                for (j in 0..sizeWindow-1) {
                     if (arrayButtonStatus[i * sizeWindow + j] == 0) writer.write("0 ")
                     else
                         writer.write("1 ")
@@ -108,12 +109,6 @@ fun main(args: Array<String>) {
             minForLife = forBirRul.trim().split(" ")[0].toInt()
             maxForLife = forBirRul.trim().split(" ")[1].toInt()
             arrayButtonStatus = reader.readLines().map { it.trim().split(" ") }.flatMap { it.toList() }.map{it.toInt()}.toTypedArray()
-            for (i in 0 until sizeWindow * sizeWindow) { // Магические константы
-                if (arrayButtonStatus[i] == 0) arrayButton[i].background = Color.BLACK
-                else
-                    arrayButton[i].background = Color.WHITE
-            }
-
         }
 
         val returnValue = fileChooser.showOpenDialog(null)
@@ -124,14 +119,13 @@ fun main(args: Array<String>) {
         if (returnValue == JFileChooser.CANCEL_OPTION) {
             sizeWindow = JOptionPane.showInputDialog("Введите размер окна").toInt()
             for (i in 0 until sizeWindow * sizeWindow) {
-                arrayLivGenInARow = arrayLivGenInARow.plus(0)
+                arrayButtonStatus = arrayButtonStatus.plus(0)
             }
         }
 
         for (i in 0 until sizeWindow) { // Магические константы
             for (j in 0 until sizeWindow) { // Магические константы
                 val myButton = JButton()
-
                 myButton.bounds = Rectangle(
                     j * (600 / sizeWindow)+20,
                     i * (600 / sizeWindow)+20,
@@ -140,14 +134,17 @@ fun main(args: Array<String>) {
                 ) // Магические константы
                 myFrame.add(myButton)
                 myFrame.isVisible = true
-                myButton.background = Color.BLACK
+                arrayButton = arrayButton.plus(myButton)
+                if(arrayButtonStatus[i*20+j] == 0 ) myButton.background = Color.BLACK
+                else
+                    myButton.background = Color.WHITE
                 myButton.addActionListener(ActionListener {
                     if (myButton.background == Color.WHITE) myButton.background = Color.BLACK
                     else
                         myButton.background = Color.WHITE
                 })
-                arrayButton = arrayButton.plus(myButton)
-                arrayButtonStatus = arrayButtonStatus.plus(0)
+
+
             }
         }
 
@@ -181,10 +178,8 @@ fun main(args: Array<String>) {
                 }
                 if (((s >= minForLife && s <= maxForLife) && arrayButtonStatus[i] == 1) || ((s >= minForBirth && s <= maxForBirth) && arrayButtonStatus[i] == 0)) {
                     arrayButton[i].background = Color.WHITE
-                    arrayLivGenInARow[i]++
                 } else {
                     arrayButton[i].background = Color.BLACK
-                    arrayLivGenInARow[i] = 0
                 }
 
             }
